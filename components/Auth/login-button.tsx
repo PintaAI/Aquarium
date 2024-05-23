@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 //di sini tempatnya buat struktur data login kaya schema lah untuk nanti dipaken di login page
 interface LoginButtonProps {
@@ -12,9 +13,11 @@ export const LoginButton = ({
     mode="redirect",
     asChild 
     }: LoginButtonProps) => {
+        const router = useRouter();
         const onClick = () => {
-            console.log("clicked")
+            router.push("/auth/login");
         }
+       
         return(
             <span onClick={onClick} className="cursor-pointer">
                 {children}
