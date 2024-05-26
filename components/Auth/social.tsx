@@ -12,3 +12,4 @@ export const Social = () => {
     </div>
   )
 }
+// jangan lupa bikin fungsi onclick untuk social login

@@ -8,3 +8,13 @@ export const LoginSchema = z.object({
         message: "password dibutuhkan"
     })
 });
+
+export const RegisterSchema = z.object({
+    email: z.string().email({
+        message: "email tidak valid"
+    }),
+    password: z.string().min(1, {
+        message: "password dibutuhkan"
+    }),
+    name: z.string().min(1)
+});

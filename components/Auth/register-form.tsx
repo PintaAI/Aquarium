@@ -17,7 +17,7 @@ import { useTransition } from "react"
 import { Card } from "../ui/card"
 import { Input } from "../ui/input"
 import { CardWrapper } from "./card-wraper"
-import { LoginSchema } from "@/schemas"
+import { RegisterSchema } from "@/schemas"
 import { Button } from "../ui/button"
 import { FormError } from "../form-error"
 import { login } from "@/actions/login"
@@ -25,24 +25,25 @@ import { login } from "@/actions/login"
 
 
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition();
-    const form = useForm <z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm <z.infer<typeof RegisterSchema>>({
+        resolver: zodResolver(RegisterSchema),
         defaultValues:{
             email: "",
             password: "",
+            name: "",
         }
     });
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) =>{
+    const onSubmit = (values: z.infer<typeof RegisterSchema>) =>{
         startTransition(() => {
             login(values)
         });
     }
 
     return (
-        <CardWrapper headerLabel="silahkan login" backButtonLabel="ga punya akun ya?" backButtonHref="/auth/register" showSocial={true}>
+        <CardWrapper headerLabel="silahkan login" backButtonLabel="udah punya akun?" backButtonHref="/auth/login" showSocial={true}>
            <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className="space-y-3">
@@ -72,6 +73,19 @@ export const LoginForm = () => {
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} disabled={isPending} placeholder="nama kamu" />
+                                    </FormControl>
+                                    
+                                </FormItem>
+                            )}
+                        />
                     </div>
                     <FormError message=""/>
                     <Button disabled={isPending} type="submit" className="w-full">
@@ -83,4 +97,4 @@ export const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default RegisterForm
