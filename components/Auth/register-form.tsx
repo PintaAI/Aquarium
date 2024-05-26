@@ -13,19 +13,22 @@ import {
     FormMessage
  } from "../ui/form"
 
-import { useTransition } from "react"
+import { useState, useTransition } from "react"
 import { Card } from "../ui/card"
 import { Input } from "../ui/input"
 import { CardWrapper } from "./card-wraper"
 import { RegisterSchema } from "@/schemas"
 import { Button } from "../ui/button"
 import { FormError } from "../form-error"
-import { login } from "@/actions/login"
+import { register } from "@/actions/register"
+import { FormSuccess } from "../form-success"
 
 
 
 
 export const RegisterForm = () => {
+    const [error, setError] = useState<string | undefined>("")
+    const [success, setSuccess] = useState<string | undefined>("")
     const [isPending, startTransition] = useTransition();
     const form = useForm <z.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
@@ -38,7 +41,11 @@ export const RegisterForm = () => {
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) =>{
         startTransition(() => {
-            login(values)
+            register(values)
+                .then((data) => {
+                    setError(data.error);
+                    setSuccess(data.success);
+                });
         });
     }
 
@@ -87,9 +94,10 @@ export const RegisterForm = () => {
                             )}
                         />
                     </div>
-                    <FormError message=""/>
+                    <FormError message={error}/>
+                    <FormSuccess message={success}/>
                     <Button disabled={isPending} type="submit" className="w-full">
-                        Login
+                        Daftar
                     </Button>
                 </form>
             </Form> 
