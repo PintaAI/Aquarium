@@ -52,7 +52,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <CardWrapper headerLabel="silahkan login" backButtonLabel="ga punya akun ya?" backButtonHref="/auth/register" showSocial={true}>
+        <CardWrapper headerLabel="silahkan login" backButtonLabel="ga punya akun ya?" backButtonHref="/auth/register" showSocial>
            <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <div className="space-y-3">
@@ -65,7 +65,7 @@ export const LoginForm = () => {
                                     <FormControl>
                                         <Input {...field} disabled={isPending} placeholder="contoh@email.com" type="email"/>
                                     </FormControl>
-                                    
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -78,7 +78,7 @@ export const LoginForm = () => {
                                     <FormControl>
                                         <Input {...field} disabled={isPending} placeholder="Password" type="password" />
                                     </FormControl>
-                                    
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />

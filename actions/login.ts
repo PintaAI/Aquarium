@@ -1,7 +1,10 @@
 "use server"
 import * as z from "zod";
 
+import { signIn } from "@/auth";
 import { LoginSchema } from "@/schemas";
+import { DEFAULT_REDIRECT_URL } from "@/routes";
+import { AuthError } from "next-auth";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
     const validatedFields = LoginSchema.safeParse(values);
@@ -9,8 +12,24 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     if (!validatedFields.success){
             return {error: "Invalid input"};
     }
-    console.log(values);
-    return { success: "Email berhasil dikirim" };
-};
+    const { email, password} = validatedFields.data;
 
-// terakhir di sini bikin fungsi login. next adlah menyelesaikan register form dan membuat agar bisa konek ke database
+    try {
+        await signIn("credentials", {
+            email,
+            password,
+            redirectTo: DEFAULT_REDIRECT_URL,
+        })
+    }   catch (error) {
+        if (error instanceof AuthError){
+          switch (error.type) {
+            case "CredentialsSignin":
+                return {error: "Invalid credentials"}
+            default:
+                return {error: "An error occurred"}
+          }
+        }
+        throw error;
+    }
+
+};
