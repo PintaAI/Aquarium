@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { cn } from "@/lib/utils";
 
 
-
-const inter = Inter({ subsets: ["latin"] });
+const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "PejuangKorea-Community",
@@ -21,9 +23,21 @@ export default function RootLayout({
 }>) {
   
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn( 
+        font.className,
+        "bg-white dark:bg-gradient-to-b dark:from-[#1a313f] dark:to-black"
+        )}>
+      <TooltipProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="theme"
+          >
         {children}
+        </ThemeProvider>
+        </TooltipProvider>
       </body>
     </html>
   );
