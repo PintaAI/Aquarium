@@ -14,7 +14,6 @@ import {
  } from "../ui/form"
 
 import { useState, useTransition } from "react"
-import { Card } from "../ui/card"
 import { Input } from "../ui/input"
 import { CardWrapper } from "./card-wraper"
 import { RegisterSchema } from "@/schemas"
