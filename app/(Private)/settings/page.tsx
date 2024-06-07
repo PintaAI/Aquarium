@@ -1,12 +1,12 @@
 "use client"
-import { useSession } from "next-auth/react";
 import { logout } from "@/actions/logout";
 import { Button } from "@/components/ui/button";
+import { UseCurrentUser } from "@/hooks/use-current-user";
 
 
 const settings =  () => {
 
-    const session = useSession();
+    const session = UseCurrentUser();
     const onClick = () => {
         logout();
     }
