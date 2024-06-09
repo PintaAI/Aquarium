@@ -25,19 +25,9 @@ const session = await auth();
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            font.className,
-            "bg-white dark:bg-gradient-to-b dark:from-[#1a313f] dark:to-black"
-          )}
-        >
+        <body className={cn(font.className,"bg-white dark:bg-slate-900")}>
           <TooltipProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem={false}
-              storageKey="theme"
-            >
+            <ThemeProvider attribute="class" defaultTheme="dark"enableSystem={false} storageKey="theme">
               {children}
             </ThemeProvider>
           </TooltipProvider>

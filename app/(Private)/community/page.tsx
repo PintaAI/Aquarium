@@ -1,11 +1,13 @@
+
 import { initialProfile } from "@/lib/initial-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation"
+import { InitialModal } from "@/components/modals/initial-modal";
 
 const ServerPage = async () => {
    const profile = await initialProfile();
 
-   const server = await db.kelas.findFirst({
+   const kelas = await db.kelas.findFirst({
     where: {
       member: {
         some: {
@@ -15,15 +17,10 @@ const ServerPage = async () => {
     }
    });
 
-   if (server){
-    return redirect(`/server/${server.id}`);
+   if (kelas){
+    return redirect(`community/kelas/${kelas.id}`);
    }
-  return (
-    <div>
-      
-      ServerPage
-    </div>
-  );
+      return <InitialModal />;
 }
 
 export default ServerPage;

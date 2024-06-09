@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import { ModeToggle } from "@/components/mode-toggle";
 import { LoginButton } from '../Auth/login-button';
@@ -5,7 +6,7 @@ import { Button } from '../ui/button';
 
 const NavBar = () => {
   return (
-    <nav className="flex items-center justify-between px-4 py-2 bg-transparent">
+    <nav className="flex items-center justify-between px-4 py-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 fixed top-0 w-full z-10">
       <div className="flex items-center">
         <span className="font-semibold text-lg">PejuangKorea</span>
       </div>
@@ -21,8 +22,8 @@ const NavBar = () => {
         </Link>
       </div>
       <ModeToggle />
-      <LoginButton mode="modal">
-        login
+      <LoginButton mode="modal" asChild>
+        <Button variant="default">Login</Button>
       </LoginButton>
     </nav>
   );

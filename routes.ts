@@ -2,8 +2,9 @@
  * Rute yang dapat diakses oleh pengguna yang tidak masuk log.
  * @type {string[]}
  */
-export const publicRoutes= [
-    "/"
+export const publicRoutes = [
+    "/",
+    "/api/uploadthing"
 ];
 
 /**

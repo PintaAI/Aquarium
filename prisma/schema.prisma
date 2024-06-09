@@ -116,7 +116,7 @@ enum RoomType {
 model Room {
   id        String   @id @default(cuid())
   name      String
-  type      RoomType
+  type      RoomType @default(TEXT)
 
 
   profileId String
