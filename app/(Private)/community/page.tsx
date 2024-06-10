@@ -20,7 +20,9 @@ const ServerPage = async () => {
    if (kelas){
     return redirect(`community/kelas/${kelas.id}`);
    }
-      return <InitialModal />;
+      return (
+        <InitialModal />
+      )
 }
 
 export default ServerPage;
