@@ -48,10 +48,10 @@ const NavBar = () => {
         </div>
       </div>
       <div className="hidden lg:flex items-center space-x-4">
-        <ModeToggle />
         <LoginButton mode="modal" asChild>
           <Button variant="default">Login</Button>
         </LoginButton>
+        <ModeToggle />
       </div>
     </nav>
   );

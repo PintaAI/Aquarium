@@ -2,27 +2,46 @@ import { currentUser } from "./auth";
 import { db } from "./db";
 
 export const initialProfile = async () => {
-    const user = await currentUser();
-    if (!user) {
-        return null;
-    }
+  // Get the currently logged-in user
+  const user = await currentUser();
 
-    const profile = await db.profile.findUnique({
-        where: {
-            userId: user.id
-        }
-    });
-    
-    if (profile) {
-        return profile;
-    }
+  // If there is no logged-in user, return null
+  if (!user) {
+    return null;
+  }
 
-    const newProfile = await db.profile.create({
-      data: {
-            userId: user.id ?? "",
-            email: user.email ?? "",
-            image: user.image ?? "",
-            name: user.name ?? "",
-        },
-    });
-}
+  // Attempt to find an existing profile for the current user in the database
+  let profile = await db.profile.findUnique({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  // If a profile is found, return it
+  if (profile) {
+    return profile;
+  }
+
+  // If no profile is found, create a new profile for the user
+  profile = await db.profile.create({
+    data: {
+      userId: user.id ?? "", // Use the user ID or an empty string if undefined
+      email: user.email ?? "", // Use the user email or an empty string if undefined
+      image: user.image ?? "", // Use the user image or an empty string if undefined
+      name: user.name ?? "", // Use the user name or an empty string if undefined
+    },
+  });
+
+  // Add the profile as a member with the role of STUDENT to the specific room
+  const roomId = "clx8u7t2t000khyjc7zqskbly";
+  await db.member.create({
+    data: {
+      role: "STUDENT",
+      profileId: profile.id,
+      kelasId: roomId,
+    },
+  });
+
+  // Return the newly created profile
+  return profile;
+};

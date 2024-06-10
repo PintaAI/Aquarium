@@ -27,4 +27,4 @@ export const apiAuthPrefix = "/api/auth";
  * URL pengalihan default ketika pengguna berhasil masuk log.
  * @type {string}
  */
-export const DEFAULT_REDIRECT_URL = "/settings";
+export const DEFAULT_REDIRECT_URL = "/community";
