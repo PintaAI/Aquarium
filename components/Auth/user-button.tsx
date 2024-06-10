@@ -9,7 +9,7 @@ import Image from "next/image";
   export const UserStatus = ({ username, image, onlineStatus }: UserStatusProps) => {
     return (
       <div className="flex items-center space-x-3 p-2 bg-[#191a1d] rounded-md shadow-lg">
-        <div className="flex space-x-3">
+        <div className="flex space-x-3 hover:bg-slate-800 rounded-sm p-2">
           <div className="relative">
             <Image
               className="rounded-full"
