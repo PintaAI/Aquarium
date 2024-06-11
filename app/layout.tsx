@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { ModalProvider } from "@/components/providers/modal-provider";
+
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,9 +27,15 @@ const session = await auth();
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className,"bg-white dark:bg-slate-900")}>
+        <body className={cn(font.className, "bg-white dark:bg-[#3a3d42]")}>
           <TooltipProvider>
-            <ThemeProvider attribute="class" defaultTheme="dark"enableSystem={false} storageKey="theme">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              storageKey="theme"
+            >
+             <ModalProvider />
               {children}
             </ThemeProvider>
           </TooltipProvider>

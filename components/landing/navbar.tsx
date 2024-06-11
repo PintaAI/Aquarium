@@ -7,51 +7,69 @@ import { Button } from "../ui/button";
 import { Menu, X } from "lucide-react"; // Assuming you have lucide-react for icons
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
-    <nav className="flex items-center justify-between px-4 py-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 fixed top-0 w-full z-10">
+    <nav className="flex items-center justify-between px-6 py-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 fixed top-0 w-full z-10 shadow-lg">
       <div className="flex items-center">
-        <span className="font-semibold text-lg">PejuangKorea</span>
+        <span className="font-bold text-xl text-primary">PejuangKorea</span>
       </div>
-      <div className="flex items-center lg:hidden">
-        <button
-          onClick={toggleMenu}
-          className="text-gray-700 focus:outline-none"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+      <div className="hidden lg:flex items-center space-x-6">
+        <Link href="#" className="text-base font-medium hover:text-gray-400 transition duration-200">
+          Community
+        </Link>
+        <Link href="#" className="text-base font-medium hover:text-gray-400 transition duration-200">
+          Program G2G koreaSelatan
+        </Link>
+        <Link href="#" className="text-base font-medium hover:text-gray-400 transition duration-200">
+          PintaBot Ai
+        </Link>
       </div>
-      <div
-        className={`flex-col items-center lg:flex lg:flex-row lg:space-x-4 lg:static lg:bg-transparent ${
-          isOpen ? "flex" : "hidden"
-        } bg-background lg:bg-transparent absolute top-full left-0 right-0 space-y-4 lg:space-y-0 py-4 lg:py-0`}
-      >
-        <Link href="#">
-          <span className="hover:text-gray-400">Themes</span>
-        </Link>
-        <Link href="#">
-          <span className="hover:text-gray-400">Primitives</span>
-        </Link>
-        <Link href="#">
-          <span className="hover:text-gray-400">Icons</span>
-        </Link>
-        <div className="flex lg:hidden items-center space-x-4">
-          <ModeToggle />
-          <LoginButton mode="modal" asChild>
-            <Button variant="default">Login</Button>
-          </LoginButton>
-        </div>
-      </div>
-      <div className="hidden lg:flex items-center space-x-4">
+      <div className="flex lg:hidden items-center space-x-4">
+        <ModeToggle />
         <LoginButton mode="modal" asChild>
           <Button variant="default">Login</Button>
         </LoginButton>
-        <ModeToggle />
+        <button
+          type="button"
+          aria-label="Toggle Menu"
+          className="text-primary focus:outline-none lg:hidden"
+          onClick={() => {
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenu) {
+              mobileMenu.classList.toggle("hidden");
+            }
+          }}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        className="hidden lg:hidden flex-col space-y-4 mt-4 bg-background p-4 absolute top-16 right-4 shadow-md rounded-md"
+      >
+        <Link href="#" className="block text-base font-medium hover:text-gray-400 transition duration-200">
+          Themes
+        </Link>
+        <Link href="#" className="block text-base font-medium hover:text-gray-400 transition duration-200">
+          Primitives
+        </Link>
+        <Link href="#" className="block text-base font-medium hover:text-gray-400 transition duration-200">
+          Icons
+        </Link>
       </div>
     </nav>
   );

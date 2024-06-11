@@ -1,27 +1,24 @@
-import { Kelas } from "@prisma/client";
-import { set } from "zod";
+// hooks/use-modal-store.ts
 import { create } from "zustand";
 
-export type ModalType = "createKelas" | "invite";
-
-
-interface ModalData{
-    kelas?: Kelas 
-}
+export type ModalType = "createKelas";
 
 interface ModalStore {
   type: ModalType | null;
   isOpen: boolean;
-  data: ModalData;
-  onOpen: (type: ModalType, data?: ModalData) => void;
+  onOpen: (type: ModalType) => void;
   onClose: () => void;
 }
 
-
-export const useModal = create<ModalStore>((set) =>({
-    type: null,
-    data: {},
-    isOpen: false,
-    onOpen: (type, data ={}) => set({type, isOpen: true}),
-    onClose: () => set({type:null, isOpen: false}),
-}))
+export const useModal = create<ModalStore>((set) => ({
+  type: null,
+  isOpen: false,
+  onOpen: (type) => {
+    console.log("Opening modal:", type);
+    set({ isOpen: true, type });
+  },
+  onClose: () => {
+    console.log("Closing modal");
+    set({ type: null, isOpen: false });
+  },
+}));

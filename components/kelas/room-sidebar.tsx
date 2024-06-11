@@ -49,28 +49,28 @@ export const RoomSidebar = async({kelasId}: RoomSidebarProps) => {
     const role = kelas.member.find((member) => member.profileId === profile.id)?.role;
     
     return (
-      <div className="flex flex-col h-full text=primary w-full dark:bg-[#2b2d31] bg-[#f2f3f5]">
-        <KelasHeader kelas={kelas} role={role} />
-        <ScrollArea className="flex-1 px-3">
-          <div>search</div>
-          <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-          {!!textRoom?.length && (
-            <div className="mb-2">
-              <KelasSection
-                label={"Text Room"}
-                roomType={RoomType.TEXT}
-                role={role}
-              />
-            </div>
-          )}
-        </ScrollArea>
-        <div>
-          <UserStatus
-            username={profile.name}
-            image={profile.image ||""}
-            onlineStatus={true}
+      <div className="flex flex-col h-full text=primary w-full dark:bg-[#2b2d31] bg-[#f2f3f5] rounded-l-3xl">
+      <KelasHeader kelas={kelas} role={role} />
+      <ScrollArea className="flex-1 px-3">
+        <div>search</div>
+        <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+        {!!textRoom?.length && (
+        <div className="mb-2">
+          <KelasSection
+          label={"Text Room"}
+          roomType={RoomType.TEXT}
+          role={role}
           />
         </div>
+        )}
+      </ScrollArea>
+      <div>
+        <UserStatus
+        username={profile.name}
+        image={profile.image ||""}
+        onlineStatus={true}
+        />
+      </div>
       </div>
     );
 }
