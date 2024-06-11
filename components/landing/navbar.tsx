@@ -4,7 +4,7 @@ import { LoginButton } from '../Auth/login-button';
 
 const NavBar = () => {
   return (
-    <nav className="flex items-center justify-between px-4 py-2 bg-transparent">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-2 bg-blur backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full border-b border-border/40">
       <div className="flex items-center">
         <span className="font-semibold text-lg">PejuangKorea</span>
       </div>
