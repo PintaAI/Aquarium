@@ -1,5 +1,3 @@
-"use client"
-
 import { KelasMemberRoom } from "@/type";
 import { MemberRoles } from "@prisma/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -14,7 +12,7 @@ interface KelasHeaderProps {
 export const KelasHeader = async(
     {kelas, role}: KelasHeaderProps
 ) => {
-    const { onOpen } = useModal();
+    
     const isTeacher = role === MemberRoles.TEACHER;
     const isModerator = isTeacher || role === MemberRoles.MODERATOR;
 
@@ -29,7 +27,7 @@ export const KelasHeader = async(
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
           {isModerator && (
-            <DropdownMenuItem onClick={()=> onOpen("invite",{kelas})} className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer">
               invite
               <UserPlus2 className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>

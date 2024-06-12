@@ -37,7 +37,7 @@ const KelasIdLayout = async ({
     console.log("Rendering KelasIdLayout");
     return (
         <div className="h-full">
-            <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0">
+            <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0 pt-12">
                 <RoomSidebar kelasId={params.kelasId} />
             </div>
             <main className="h-full md:pl-60">{children}</main>

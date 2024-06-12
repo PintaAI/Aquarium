@@ -1,4 +1,4 @@
-"use Clienrt"
+
 
 import { KelasMemberRoom } from "@/type";
 import { MemberRoles, RoomType } from "@prisma/client";
@@ -23,4 +23,4 @@ export const KelasSection = async({
            </p>
         </div>
     )
-}
+} 

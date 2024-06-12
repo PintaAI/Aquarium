@@ -49,7 +49,7 @@ export const RoomSidebar = async({kelasId}: RoomSidebarProps) => {
     const role = kelas.member.find((member) => member.profileId === profile.id)?.role;
     
     return (
-      <div className="flex flex-col h-full text=primary w-full dark:bg-[#2b2d31] bg-[#f2f3f5] rounded-l-3xl">
+      <div className="flex flex-col h-full w-full dark:bg-secondary bg-[#f2f3f5] rounded-l-3xl">
       <KelasHeader kelas={kelas} role={role} />
       <ScrollArea className="flex-1 px-3">
         <div>search</div>

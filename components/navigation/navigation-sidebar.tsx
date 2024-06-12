@@ -2,15 +2,11 @@ import { currentProfile } from '@/lib/current-profile'
 import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
-import { PersonIcon } from "@radix-ui/react-icons";
-
 
 import { NavigationAction } from './navigation-action';
 import { ScrollArea } from '../ui/scroll-area';
 import { NavigationItem } from './navigation-item';
 
-import { UserStatus } from '../Auth/user-button';
-import SimpleModal from '../test/simplemodal';
 
 export const NavigationSideBar = async () => {
 const profile = await currentProfile();
@@ -45,7 +41,6 @@ if(!profile) {
           </div>
         ))}
       </ScrollArea>
-      <SimpleModal />
       <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
       <NavigationAction />
     </div>

@@ -36,6 +36,7 @@ const session = await auth();
               storageKey="theme"
             >
              <ModalProvider />
+             
               {children}
             </ThemeProvider>
           </TooltipProvider>
