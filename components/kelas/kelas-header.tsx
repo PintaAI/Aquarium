@@ -45,7 +45,7 @@ export const KelasHeader =(
             <DropdownMenuItem
               onClick={() => {
                 console.log("Ini adalah data kelas:", kelas);
-                onOpen("settings", { kelas });
+                onOpen("settingsKelas", { kelas });
               }}
               className="px-3 py-2 text-sm cursor-pointer"
             >

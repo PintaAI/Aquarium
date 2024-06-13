@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   name: z.string().min(1, { message: "Nama kelas tidak boleh kosong" }),
-  image: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
+  imageUrl: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
 });
 
 export const CreateKelasModal = () => {
@@ -34,7 +34,7 @@ export const CreateKelasModal = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      image: "",
+      imageUrl: "",
     },
   });
 
@@ -82,7 +82,7 @@ export const CreateKelasModal = () => {
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
-                  name="image"
+                  name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>

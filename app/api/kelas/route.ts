@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 import { MemberRoles } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-
+//api route untuk create kelas
 export async function POST(req: Request) {
   try {
-    const { name, image } = await req.json();
+    const { name, imageUrl } = await req.json();
     const profile = await currentProfile();
 
     if (!profile) {
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     const kelas = await db.kelas.create({
       data: {
         name,
-        imageUrl: image,
+        imageUrl,
         profileId: profile.id,
         inviteCode: uuidv4(),
         room: {

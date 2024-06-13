@@ -2,7 +2,7 @@
 import { Kelas } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createKelas" | "invite" | "settings" | "tambahRoom" | "hapusKelas" | "leaveKelas";
+export type ModalType = "createKelas" | "invite" | "settingsKelas" | "tambahRoom" | "hapusKelas" | "leaveKelas";
 
 interface ModalData {
   kelas?: Kelas;

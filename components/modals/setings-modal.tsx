@@ -22,28 +22,36 @@ import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   name: z.string().min(1, { message: "Nama kelas tidak boleh kosong" }),
-  image: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
+  imageUrl: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
 });
 
-export const CreateKelasModal = () => {
-  const { isOpen, onClose, type } = useModal();
-  const isModalOpen = isOpen && type === "createKelas";
+export const SettingsKelas = () => {
+  const { isOpen, onClose, type, data } = useModal();
+  const isModalOpen = isOpen && type === "settingsKelas";
+  const { kelas } = data ?? {};
   const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      image: "",
+      imageUrl: "",
     },
   });
 
+
+  useEffect(() => {
+    if (kelas) {
+      form.setValue("name", kelas.name);
+      form.setValue("imageUrl", kelas.imageUrl ?? "");
+    }
+  }, [kelas, form]);
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     console.log("Submitting form with values:", values);
     try {
-      const response = await axios.post("/api/kelas", values);
+      const response = await axios.patch(`/api/kelas/${kelas?.id}`, values);
       console.log("Response from server:", response.data);
 
       form.reset();
@@ -70,10 +78,10 @@ export const CreateKelasModal = () => {
       <DialogContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Buat Kelas
+            Edit Kelas
           </DialogTitle>
           <DialogDescription className=" text-zinc-800 text-center text-sm mt-2">
-            Buat kelas untuk mengatur tugas dan materi
+            Edit kelas untuk mengatur tugas dan materi
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -82,7 +90,7 @@ export const CreateKelasModal = () => {
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
-                  name="image"
+                  name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
@@ -118,7 +126,7 @@ export const CreateKelasModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 dark: bg-secondary px-6 py-4">
               <Button type="submit" className="w-full" disabled={isLoading}>
-                Buat Kelas
+                Save
               </Button>
             </DialogFooter>
           </form>
