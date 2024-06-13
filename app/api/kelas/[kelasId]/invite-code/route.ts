@@ -3,6 +3,7 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+//api route untuk generate invite code
 export async function PATCH(req: Request,{params}: {params: {kelasId: string}}) {
 
     try {

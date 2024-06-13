@@ -1,7 +1,6 @@
 import { currentProfile } from "@/lib/current-profile";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { v4 as uuidv4 } from "uuid";
 // api route untuk setting/update kelas
 export async function PATCH(req: Request,{params}: {params: {kelasId: string}}) {
     try {

@@ -22,7 +22,7 @@ export const InviteModal = () => {
 
   const [isCopied, setIsCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+// handle coppying invite code
   const onCopy = () => {
     navigator.clipboard.writeText(inviteUrl);
     setIsCopied(true);
@@ -30,7 +30,7 @@ export const InviteModal = () => {
       setIsCopied(false);
     }, 3000);
   };
-
+// generate new invite code
   const onNew = async () => {
     try{
       setIsLoading(true);
