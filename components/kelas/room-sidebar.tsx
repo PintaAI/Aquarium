@@ -8,6 +8,9 @@ import { Separator } from "../ui/separator";
 import { KelasSection } from "./kelas-section";
 import {UserStatus} from "../Auth/user-button";
 
+
+
+// ini adalah siebar yang berisi list room yang ada di kelas
 interface RoomSidebarProps {
     kelasId: string;
 }
@@ -43,7 +46,7 @@ export const RoomSidebar = async({kelasId}: RoomSidebarProps) => {
     const videoRoom = kelas?.room.filter((room) => room.type === RoomType.VIDEO);
 
     if(!kelas) {
-        return redirect('/community/kelas')
+        return redirect('/community')
     }
 
     const role = kelas.member.find((member) => member.profileId === profile.id)?.role;

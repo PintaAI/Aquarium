@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CreateKelasModal } from "../modals/create-kelas-modal";
+import { InviteModal } from "../modals/invite-modal";
 
 export const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState(false)
@@ -17,7 +18,8 @@ export const ModalProvider = () => {
 
     return (
       <>
-        <CreateKelasModal /> 
+        <CreateKelasModal />
+        <InviteModal /> 
       </>
     );
 }

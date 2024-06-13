@@ -33,7 +33,7 @@ export const initialProfile = async () => {
   });
 
   // Add the profile as a member with the role of STUDENT to the specific room
-  const roomId = "clx8u7t2t000khyjc7zqskbly";
+  const roomId = "clxcwzb4q0013fjxxip7wqt8z";
   await db.member.create({
     data: {
       role: "STUDENT",

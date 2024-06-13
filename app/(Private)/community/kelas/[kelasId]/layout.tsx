@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { RoomSidebar } from "@/components/kelas/room-sidebar";
 
+
+
+//ini adalah layout untuk halaman kelas isinya ada sidebar untuk list roo,m dan 
 const KelasIdLayout = async ({
     children,
     params,
@@ -37,7 +40,7 @@ const KelasIdLayout = async ({
     console.log("Rendering KelasIdLayout");
     return (
         <div className="h-full">
-            <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0 pt-12">
+            <div className="hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0">
                 <RoomSidebar kelasId={params.kelasId} />
             </div>
             <main className="h-full md:pl-60">{children}</main>

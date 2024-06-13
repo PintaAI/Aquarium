@@ -72,7 +72,7 @@ model Kelas {
   id        String   @id @default(cuid())
   name      String
   imageUrl  String? @db.Text
-  inviteCode String @db.Text
+  inviteCode String @unique
   profileId String
 
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
