@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "PejuangKorea-Community",
   description: "test",
   icons: {
-    icon: "icons/fav2.ico",
+    icon: "icons/fav.ico",
   }
 };
 
@@ -27,7 +27,7 @@ const session = await auth();
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#3a3d42]")}>
+        <body className={cn(font.className, "bg-white dark:bg-background")}>
           <TooltipProvider>
             <ThemeProvider
               attribute="class"

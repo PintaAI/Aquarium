@@ -54,7 +54,9 @@ export const KelasHeader =(
             </DropdownMenuItem>
           )}
           {isTeacher && (
-            <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("tambahRoom")}
+             className="px-3 py-2 text-sm cursor-pointer">
               Tambah Room
               <PlusCircle className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>

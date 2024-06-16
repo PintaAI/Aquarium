@@ -8,6 +8,7 @@ const settings = () => {
 
   const onClickLogout = () => {
     logout();
+    window.location.reload(); // Refresh the page after logout
   };
 
   const onClickNavigate = () => {

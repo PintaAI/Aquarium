@@ -1,11 +1,10 @@
 "use client";
-
+import qs from "query-string"
 import axios from "axios";
 import { useModal } from "@/hooks/use-modal-store";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -16,24 +15,31 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormLabel, FormItem, FormField } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { FileUpload } from "../ui/file-upload";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+ } from "../ui/select";
+import { RoomType } from "@prisma/client";
 
 const FormSchema = z.object({
-  name: z.string().min(1, { message: "Nama kelas tidak boleh kosong" }),
-  imageUrl: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
+  name: z.string().min(1, { message: "Nama room tidak boleh kosong" }),
+  type: z.nativeEnum(RoomType).default(RoomType.TEXT),
 });
 
-export const CreateKelasModal = () => {
+export const CreateRoomModal = () => {
   const { isOpen, onClose, type } = useModal();
-  const isModalOpen = isOpen && type === "createKelas";
+  const isModalOpen = isOpen && type === "tambahRoom";
   const router = useRouter();
+  const params = useParams();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      imageUrl: "",
+      type: RoomType.TEXT,
     },
   });
 
@@ -42,7 +48,13 @@ export const CreateKelasModal = () => {
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     console.log("Submitting form with values:", values);
     try {
-      const response = await axios.post("/api/kelas", values);
+      const url = qs.stringifyUrl({
+        url: "/api/room",
+        query: { 
+          kelasId: params?.kelasId
+        },
+      })
+      const response = await axios.post(url, values);
       console.log("Response from server:", response.data);
 
       form.reset();
@@ -69,55 +81,65 @@ export const CreateKelasModal = () => {
       <DialogContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Buat Kelas
+            Buat Room
           </DialogTitle>
-          <DialogDescription className=" text-zinc-800 text-center text-sm mt-2">
-            Buat kelas untuk mengatur tugas dan materi
-          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">
-                <FormField
-                  control={form.control}
-                  name="imageUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <FileUpload
-                          endpoint="kelasImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-700 dark:text-white">
-                      Nama Kelas
+                      Nama Room
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isLoading}
-                        placeholder="Nama Kelas"
+                        placeholder="Masukan nama room"
                         className="bg-zinc300/50 dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-700 dark:text-white">
+                      Tipe Room
+                    </FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="bg-zinc300/50 dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0">
+                          <SelectValue placeholder="Pilih tipe room" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.values(RoomType).map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
             </div>
             <DialogFooter className="bg-gray-100 dark: bg-secondary px-6 py-4">
               <Button type="submit" className="w-full" disabled={isLoading}>
-                Buat Kelas
+                Buat Room
               </Button>
             </DialogFooter>
           </form>

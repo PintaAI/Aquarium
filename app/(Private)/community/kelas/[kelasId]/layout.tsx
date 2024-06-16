@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { RoomSidebar } from "@/components/kelas/room-sidebar";
 
-
+ 
 
 //ini adalah layout untuk halaman kelas isinya ada sidebar untuk list roo,m dan 
 const KelasIdLayout = async ({
