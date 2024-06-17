@@ -10,6 +10,11 @@ import {UserStatus} from "../Auth/user-button";
 import { ServerSearch } from "./server-search";
 import { MessageSquareMore, Mic, Video } from "lucide-react";
 import { KelasRoom } from "./kelas-room";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 
  
 
@@ -60,70 +65,91 @@ export const RoomSidebar = async({kelasId}: RoomSidebarProps) => {
 
     const role = kelas.member.find((member) => member.profileId === profile.id)?.role;
     
-    return (
-      <div className="flex flex-col h-full w-full ml-[3px] bg-[#f2f3f5] rounded-l-sm dark:bg-gradient-to-b dark:from-background dark:to-secondary from-30% to-80% border-r-[1px] border-grey">
-        <KelasHeader kelas={kelas} role={role} />
-        <ScrollArea className="flex-1 px-3">
-          <div>
-            <ServerSearch
-              data={[
-                {
-                  label: "Chat ruang kelas",
-                  type: "room",
-                  data: textRoom?.map((room) => ({
-                    icon: iconMap[room.type],
-                    name: room.name,
-                    id: room.id,
-                  })),
-                },
-                {
-                  label: "Voice ruang kelas",
-                  type: "room",
-                  data: audioRoom?.map((room) => ({
-                    icon: iconMap[room.type],
-                    name: room.name,
-                    id: room.id,
-                  })),
-                },
-                {
-                  label: "Video ruang kelas",
-                  type: "room",
-                  data: videoRoom?.map((room) => ({
-                    icon: iconMap[room.type],
-                    name: room.name,
-                    id: room.id,
-                  })),
-                },
-              ]}
-            />
-          </div>
-          <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-          {!!textRoom?.length && (
-            <div className="mb-2">
-              <KelasSection
-                selectionType={"rooms"}
-                label={"Chat ruang kelas"}
-                roomType={RoomType.TEXT}
-                role={role}
-              />
-              {textRoom.map((room)=>(
-                <KelasRoom
-                  key={room.id}
-                  room={room}
-                  kelas={kelas}
-                  role={role}
-                />
-              ))}
-            </div>
-          )}
-        </ScrollArea>
-        <div>
-          <UserStatus
-            username={profile.name}
-            image={profile.image || ""}
-            onlineStatus={true}
-          />
-        </div>
+return (
+  <div className="flex flex-col h-full w-full ml-[3px] bg-[#f2f3f5] rounded-l-sm dark:bg-gradient-to-b dark:from-background dark:to-secondary from-30% to-80% border-r-[1px] border-grey">
+    <KelasHeader kelas={kelas} role={role} />
+    <ScrollArea className="flex-1 px-3">
+      <div>
+        <ServerSearch
+          data={[
+            {
+              label: "Chat room",
+              type: "room",
+              data: textRoom?.map((room) => ({
+                icon: iconMap[room.type],
+                name: room.name,
+                id: room.id,
+              })),
+            },
+            {
+              label: "Voice room",
+              type: "room",
+              data: audioRoom?.map((room) => ({
+                icon: iconMap[room.type],
+                name: room.name,
+                id: room.id,
+              })),
+            },
+            {
+              label: "Video room",
+              type: "room",
+              data: videoRoom?.map((room) => ({
+                icon: iconMap[room.type],
+                name: room.name,
+                id: room.id,
+              })),
+            },
+          ]}
+        />
       </div>
-    );
+      <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+      {!!textRoom?.length && (
+        <div className="mb-2">
+          <KelasSection
+            selectionType={"rooms"}
+            label={"Chat room"}
+            roomType={RoomType.TEXT}
+            role={role}
+          />
+          {textRoom.map((room) => (
+            <KelasRoom key={room.id} room={room} kelas={kelas} role={role} />
+          ))}
+        </div>
+      )}
+      {!!audioRoom?.length && (
+        <div className="mb-2">
+          <KelasSection
+            selectionType={"rooms"}
+            label={"Voice room"}
+            roomType={RoomType.AUDIO}
+            role={role}
+          />
+          {audioRoom.map((room) => (
+            <KelasRoom key={room.id} room={room} kelas={kelas} role={role} />
+          ))}
+        </div>
+      )}
+      {!!videoRoom?.length && (
+        <div className="mb-2">
+          <KelasSection
+            selectionType={"rooms"}
+            label={"Video room"}
+            roomType={RoomType.VIDEO}
+            role={role}
+          />
+          {videoRoom.map((room) => (
+            <KelasRoom key={room.id} room={room} kelas={kelas} role={role} />
+          ))}
+        </div>
+      )}
+    </ScrollArea>
+    <div>
+      <UserStatus
+        username={profile.name}
+        image={profile.image || ""}
+        onlineStatus={true}
+      />
+    </div>
+  </div>
+);
 }
