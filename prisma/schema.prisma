@@ -98,6 +98,8 @@ model Member {
   kelasId   String
   kelas     Kelas @relation(fields: [kelasId], references: [id], onDelete: Cascade)
 
+  messages  Message[]
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -122,7 +124,8 @@ model Room {
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   
-  
+  messages  Message[]
+
   kelasId   String
   kelas     Kelas @relation(fields: [kelasId], references: [id], onDelete: Cascade)
 
@@ -131,4 +134,22 @@ model Room {
 
   @@index([profileId])
   @@index([kelasId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String @db.Text
+  fileUrl   String? @db.Text
+  roomId    String
+  room      Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  memberId  String
+  member    Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deleteed  Boolean @default(false)
+
+  @@index([roomId])
+  @@index([memberId])
 }

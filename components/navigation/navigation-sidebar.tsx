@@ -29,7 +29,7 @@ if(!profile) {
   console.log(kelas);
 
   return (
-    <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-secondary py-3 rounded-t-md">
+    <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-secondary py-3 rounded-t-md bg-[#e3e5e8]">
       <ScrollArea className="flex-1 w-full">
         {kelas.map((kelas) => (
           <div key={kelas.id} className="mb-4">
