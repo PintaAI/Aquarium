@@ -1,5 +1,7 @@
 import { Menu, MessageSquare } from "lucide-react"
 import { MobileToggle } from "../mobile.-toggle";
+import { Socket } from "socket.io";
+import { SocketIndicator } from "../socket-indicator";
 
 interface ChatHeaderProps {
     kelasId: string;
@@ -23,6 +25,9 @@ return (
         <p className="ml-2 text-lg font-bold text-gray-800 dark:text-white">
             {name}
         </p>
+        <div className="ml-auto flex items-center">
+            <SocketIndicator />
+        </div>
     </div>
 );
 }

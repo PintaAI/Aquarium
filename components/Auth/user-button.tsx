@@ -12,6 +12,7 @@ import {
 } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { SocketIndicator } from "../socket-indicator";
 
  interface UserStatusProps {
    username: string;
@@ -52,8 +53,8 @@ import { Button } from "../ui/button";
               </div>
               <div className="flex flex-col">
                 <span className=" font-semibold text-sm">{username}</span>
-                <span className="text-xs text-gray-400">
-                  {onlineStatus ? "Online" : "Offline"}
+                <span>
+                  <SocketIndicator />
                 </span>
               </div>
             </div>
