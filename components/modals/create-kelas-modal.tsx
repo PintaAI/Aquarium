@@ -13,7 +13,14 @@ import {
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormLabel, FormItem, FormField } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormLabel,
+  FormItem,
+  FormField,
+  FormMessage,
+} from "../ui/form"; // Tambah FormMessage
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FileUpload } from "../ui/file-upload";
@@ -21,7 +28,7 @@ import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   name: z.string().min(1, { message: "Nama kelas tidak boleh kosong" }),
-  imageUrl: z.string().min(1, { message: "URL gambar tidak boleh kosong" }),
+  imageUrl: z.string().min(1, { message: "Silahkan upload gambar" }),
 });
 
 export const CreateKelasModal = () => {
@@ -82,7 +89,7 @@ export const CreateKelasModal = () => {
                 <FormField
                   control={form.control}
                   name="imageUrl"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormControl>
                         <FileUpload
@@ -91,6 +98,9 @@ export const CreateKelasModal = () => {
                           onChange={field.onChange}
                         />
                       </FormControl>
+                      {fieldState.error && (
+                        <FormMessage>{fieldState.error.message}</FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />
@@ -98,7 +108,7 @@ export const CreateKelasModal = () => {
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-700 dark:text-white">
                       Nama Kelas
@@ -111,12 +121,19 @@ export const CreateKelasModal = () => {
                         className="bg-zinc300/50 dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
                       />
                     </FormControl>
+                    {fieldState.error && (
+                      <FormMessage>{fieldState.error.message}</FormMessage>
+                    )}
                   </FormItem>
                 )}
               />
             </div>
             <DialogFooter className="bg-gray-100 dark: bg-secondary px-6 py-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full md:w-auto"
+                disabled={isLoading}
+              >
                 Buat Kelas
               </Button>
             </DialogFooter>

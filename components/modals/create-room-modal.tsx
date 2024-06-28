@@ -1,5 +1,5 @@
 "use client";
-import qs from "query-string"
+import qs from "query-string";
 import axios from "axios";
 import { useModal } from "@/hooks/use-modal-store";
 import {
@@ -12,20 +12,32 @@ import {
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormLabel, FormItem, FormField } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormLabel,
+  FormItem,
+  FormField,
+  FormMessage,
+} from "../ui/form"; // Add FormMessage
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { Select,
+import {
+  Select,
   SelectContent,
   SelectTrigger,
   SelectValue,
   SelectItem,
- } from "../ui/select";
+} from "../ui/select";
 import { RoomType } from "@prisma/client";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 const FormSchema = z.object({
-  name: z.string().min(1, { message: "Nama room tidak boleh kosong" }),
+  name: z
+    .string()
+    .min(1, { message: "Nama room tidak boleh kosong" })
+    .max(14, { message: "Nama room maksimal 14 karakter" }),
   type: z.nativeEnum(RoomType).default(RoomType.TEXT),
 });
 
@@ -50,10 +62,10 @@ export const CreateRoomModal = () => {
     try {
       const url = qs.stringifyUrl({
         url: "/api/room",
-        query: { 
-          kelasId: params?.kelasId
+        query: {
+          kelasId: params?.kelasId,
         },
-      })
+      });
       const response = await axios.post(url, values);
       console.log("Response from server:", response.data);
 
@@ -80,9 +92,12 @@ export const CreateRoomModal = () => {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
+          <DialogTitle className="text-2xl mr-auto font-bold">
             Buat Room
           </DialogTitle>
+          <DialogDescription className=" text-zinc-500 mr-auto text-sm mt-2">
+            Buat kelas untuk mengatur tugas dan materi
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -90,7 +105,7 @@ export const CreateRoomModal = () => {
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-700 dark:text-white">
                       Nama Room
@@ -103,13 +118,16 @@ export const CreateRoomModal = () => {
                         className="bg-zinc300/50 dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
                       />
                     </FormControl>
+                    {fieldState.error && (
+                      <FormMessage>{fieldState.error.message}</FormMessage>
+                    )}
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="type"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
                     <FormLabel className="uppercase text-xs font-bold text-zinc-700 dark:text-white">
                       Tipe Room
@@ -120,7 +138,7 @@ export const CreateRoomModal = () => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc300/50 dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0">
+                        <SelectTrigger className="bg-white dark:bg-secondary border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0">
                           <SelectValue placeholder="Pilih tipe room" />
                         </SelectTrigger>
                       </FormControl>
@@ -129,16 +147,18 @@ export const CreateRoomModal = () => {
                           <SelectItem key={type} value={type}>
                             {type}
                           </SelectItem>
-                        
                         ))}
                       </SelectContent>
                     </Select>
+                    {fieldState.error && (
+                      <FormMessage>{fieldState.error.message}</FormMessage>
+                    )}
                   </FormItem>
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 dark: bg-secondary px-6 py-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
+            <DialogFooter className="bg-gray-100 dark:bg-secondary px-6 py-4">
+              <Button type="submit" className="w-full md:w-auto" disabled={isLoading}>
                 Buat Room
               </Button>
             </DialogFooter>

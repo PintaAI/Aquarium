@@ -123,7 +123,11 @@ export const InitialModal = () => {
                 />
               </div>
               <DialogFooter className="bg-gray-100 dark:bg-gray-700 px-6 py-4">
-                <Button type="submit" className="w-full" disabled={isloading}>
+                <Button
+                  type="submit"
+                  className="w-full md:w-auto"
+                  disabled={isloading}
+                >
                   Buat Kelas
                 </Button>
               </DialogFooter>

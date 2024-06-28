@@ -125,7 +125,11 @@ export const SettingsKelas = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 dark: bg-secondary px-6 py-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full md:w-auto"
+                disabled={isLoading}
+              >
                 Save
               </Button>
             </DialogFooter>

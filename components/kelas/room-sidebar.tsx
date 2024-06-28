@@ -10,11 +10,6 @@ import {UserStatus} from "../Auth/user-button";
 import { ServerSearch } from "./server-search";
 import { MessageSquareMore, Mic, Video } from "lucide-react";
 import { KelasRoom } from "./kelas-room";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
 
  
 

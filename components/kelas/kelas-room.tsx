@@ -35,7 +35,7 @@ export const KelasRoom = ({
     const Icon = iconMap[room.type]
     const [isHovered, setIsHovered] = useState(false);
     const fullText = room.name;
-    const truncatedText = fullText.split(" ")[0] + " ‹";
+    const truncatedText = fullText.split(" ").slice(0, 2).join(" ") + " ‹";
 
     return (
       <button
