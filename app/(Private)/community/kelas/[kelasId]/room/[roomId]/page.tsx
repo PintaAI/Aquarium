@@ -1,4 +1,5 @@
 import {ChatHeader} from "@/components/chat/chat-header";
+import { ChatInput } from "@/components/chat/chat-input";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
@@ -33,14 +34,23 @@ const KelasIdPage = async ({ params }: KelasIdPageProps) => {
   }
 
   return (
-    <div className="h-full w-full z-20 flex flex-col mt-[60px] md:mt-0 fixed inset-y-0">
+    <div className="h-full z-20 flex flex-col pt-[58px] md:pt-0 inset-y-0">
       <ChatHeader
         kelasId={params.kelasId}
         name={room.name}
         type={"room"}
         image={""}
+        
       />
-      ini bakal jadi chatroom nantinya
+      <div className="flex-1">ini display chat nantiinya</div>
+      <ChatInput 
+      name={room.name}
+      type="room"
+      apiUrl="/api/socket/messages"
+      query={{ roomId: room.id,
+        kelasId: room.kelasId
+       }}
+      />
     </div>
   );
 };

@@ -36,14 +36,19 @@ const Home = async ({ params }: KelasIdPageProps) => {
   }
 
   return (
-    <div className="h-full w-full z-20 flex flex-col mt-[60px] md:mt-0 fixed inset-y-0">
+    <div className="h-full w-full z-20 flex flex-col mt-[60px] md:mt-0 inset-y-0">
       <ChatHeader
         kelasId={params.kelasId}
         name={kelas.name}
         type={"home"}
         image={""}
       />
-      ini bakal jadi home
+      <div className="flex-1 flex">
+        <div className="flex-1 border border-green-600">
+          ini display chat nantiinya
+        </div>
+        <div className="flex-1 border border-blue-500">ini nantinya video</div>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { SocketProvider } from "@/components/providers/socket-provider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -35,9 +36,11 @@ const session = await auth();
               enableSystem={false}
               storageKey="theme"
             >
-             <ModalProvider />
-             
-              {children}
+              <SocketProvider>
+                <ModalProvider />
+
+                {children}
+              </SocketProvider>
             </ThemeProvider>
           </TooltipProvider>
         </body>

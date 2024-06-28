@@ -11,7 +11,7 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
       <div className="md:hidden fixed top-0 left-0 w-full h-[60px] z-30">
         <NavigationTopBar />
       </div>
-      <main className="md:pl-[72px] h-full pt-[60px] md:pt-0">{children}</main>
+      <main className="md:pl-[72px] h-full border">{children}</main>
     </div>
   );
 };

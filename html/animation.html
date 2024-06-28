@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Text Ribbon Animator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+        }
+        .ribbon {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            transform-origin: center;
+        }
+        .letter {
+            display: inline-block;
+            padding: 5px;
+            text-align: center;
+            color: white;
+            transform-origin: center;
+        }
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="color"] {
+            width: 50px;
+        }
+        /* Improved slider styles */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        input[type="range"]:hover {
+            opacity: 1;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <label for="text">Text:</label>
+        <input type="text" id="text" value="PINTABOT">
+        
+        <label for="ribbonCount">Ribbon Count:</label>
+        <input type="range" id="ribbonCount" min="1" max="5" value="3">
+        
+        <label for="speed">Speed:</label>
+        <input type="range" id="speed" min="1" max="10" value="5">
+        
+        <label for="waveAmplitude">Wave Amplitude:</label>
+        <input type="range" id="waveAmplitude" min="0" max="100" value="50">
+        
+        <label for="waveFrequency">Wave Frequency:</label>
+        <input type="range" id="waveFrequency" min="1" max="10" value="2">
+        
+        <label for="ribbonSpacing">Ribbon Spacing:</label>
+        <input type="range" id="ribbonSpacing" min="10" max="100" value="50">
+        
+        <label for="fontSize">Font Size:</label>
+        <input type="range" id="fontSize" min="12" max="48" value="24">
+        
+        <label for="color1">Color 1:</label>
+        <input type="color" id="color1" value="#000000">
+        
+        <label for="color2">Color 2:</label>
+        <input type="color" id="color2" value="#0099FF">
+        
+        <label for="color3">Color 3:</label>
+        <input type="color" id="color3" value="#FFFFFF">
+    </div>
+    <div class="container" id="animationContainer"></div>
+
+    <script>
+        const container = document.getElementById('animationContainer');
+        const textInput = document.getElementById('text');
+        const ribbonCountInput = document.getElementById('ribbonCount');
+        const speedInput = document.getElementById('speed');
+        const waveAmplitudeInput = document.getElementById('waveAmplitude');
+        const waveFrequencyInput = document.getElementById('waveFrequency');
+        const ribbonSpacingInput = document.getElementById('ribbonSpacing');
+        const fontSizeInput = document.getElementById('fontSize');
+        const color1Input = document.getElementById('color1');
+        const color2Input = document.getElementById('color2');
+        const color3Input = document.getElementById('color3');
+
+        function createRibbons() {
+            container.innerHTML = '';
+            const text = textInput.value;
+            const ribbonCount = ribbonCountInput.value;
+            const fontSize = fontSizeInput.value;
+            const ribbonSpacing = ribbonSpacingInput.value;
+            const colors = [color1Input.value, color2Input.value, color3Input.value];
+
+            for (let i = 0; i < ribbonCount; i++) {
+                const ribbon = document.createElement('div');
+                ribbon.className = 'ribbon';
+                ribbon.style.top = `${i * ribbonSpacing}px`;
+
+                for (let j = 0; j < text.length; j++) {
+                    const letter = document.createElement('span');
+                    letter.className = 'letter';
+                    letter.textContent = text[j];
+                    letter.style.backgroundColor = colors[i % colors.length];
+                    letter.style.fontSize = `${fontSize}px`;
+                    ribbon.appendChild(letter);
+                }
+
+                container.appendChild(ribbon);
+            }
+        }
+
+        function animate() {
+            const speed = speedInput.value * 0.001;
+            const amplitude = waveAmplitudeInput.value;
+            const frequency = waveFrequencyInput.value * 0.1;
+            const ribbons = document.querySelectorAll('.ribbon');
+            const time = Date.now() * speed;
+
+            ribbons.forEach((ribbon, ribbonIndex) => {
+                const letters = ribbon.querySelectorAll('.letter');
+                letters.forEach((letter, letterIndex) => {
+                    const yOffset = Math.sin((time + letterIndex * frequency) * Math.PI) * amplitude;
+                    const xOffset = letterIndex * (parseFloat(fontSizeInput.value) * 0.6); // Adjust letter spacing
+                    letter.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        [textInput, ribbonCountInput, speedInput, waveAmplitudeInput, waveFrequencyInput,
+         ribbonSpacingInput, fontSizeInput, color1Input, color2Input, color3Input].forEach(input => {
+            input.addEventListener('input', createRibbons);
+        });
+
+        createRibbons();
+        animate();
+    </script>
+</body>
+</html>
