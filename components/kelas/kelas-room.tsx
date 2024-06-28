@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { ActionTooltip } from "../action-tooltip";
 import { useState } from "react";
+import { ModalType } from "@/hooks/use-modal-store";
 
 
 
@@ -33,19 +34,29 @@ export const KelasRoom = ({
     const router = useRouter();
 
     const Icon = iconMap[room.type]
+    
+    const onClick = () => {
+      router.push(`/community/kelas/${params?.kelasId}/room/${room.id}`)
+    }
+
+    const onAction = (e: React.MouseEvent, action: ModalType) => {
+      e.stopPropagation();
+      //onOpen(action, { room, kelas });
+    }
+
     const [isHovered, setIsHovered] = useState(false);
     const fullText = room.name;
     const truncatedText = fullText.split(" ").slice(0, 2).join(" ") + " ‹";
 
     return (
       <button
-        onClick={() => {}}
+        onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
           "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-secondary focus:outline-none focus:ring-offset-2 focus:ring-zinc-500 transition-colors mb-1",
           params.roomId === room.id &&
-            "bg-primary dark:bg-primary dark:group-hover:bg-primary"
+            "bg-secondary dark:bg-primary dark:group-hover:bg-primary"
         )}
       >
         <Icon className="flex-shrink-0 w-5 h-5 text-zinc-500 dark:text-zinc-400" />
@@ -53,7 +64,7 @@ export const KelasRoom = ({
           className={cn(
             "text-zinc-500 dark:text-zinc-400 font-semibold group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition",
             params.roomId === room.id &&
-              "text-primary dark:text-zinc-200 dark:group-hover:text-white"
+              "text-zinc-500 dark:text-zinc-200 dark:group-hover:text-white"
           )}
         >
           {isHovered ? truncatedText : fullText}
