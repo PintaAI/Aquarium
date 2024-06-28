@@ -34,12 +34,13 @@ const KelasIdPage = async ({ params }: KelasIdPageProps) => {
   }
 
   return (
-    <div className="h-full w-full z-20 flex flex-col  md:mt-0 fixed inset-y-0 border border-red-500">
+    <div className="h-full z-20 flex flex-col pt-[58px] md:pt-0 inset-y-0">
       <ChatHeader
         kelasId={params.kelasId}
         name={room.name}
         type={"room"}
         image={""}
+        
       />
       <div className="flex-1">ini display chat nantiinya</div>
       <ChatInput 
