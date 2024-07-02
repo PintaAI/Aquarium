@@ -6,6 +6,7 @@ export function InfiniteMovingCardsDemo() {
   return (
     <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards
+      // @ts-ignore
         items={testimonials}
         direction="right"
         speed="slow"
@@ -53,16 +54,17 @@ const page = () => {
   return (
     <div>
       <header>
-        <Navbar/>
+        <Navbar />
       </header>
       <main className="mt-16">
-      <InfiniteMovingCards items={testimonials}/>
+        <InfiniteMovingCards
+          //@ts-ignore
+          items={testimonials}
+        />
       </main>
-      <footer>
-        footer
-      </footer>
+      <footer>footer</footer>
     </div>
-  )
+  );
 }
 
 export default page
