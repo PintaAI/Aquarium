@@ -70,3 +70,25 @@
       @apply bg-background text-foreground;
     }
   }
+  /* styles/global.css */
+
+.card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-image {
+  width: 150px; /* Ukuran gambar yang diinginkan */
+  height: 150px; /* Ukuran gambar yang diinginkan */
+  object-fit: cover;
+  
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-quote {
+  font-style: italic;
+}

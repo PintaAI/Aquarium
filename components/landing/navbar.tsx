@@ -21,7 +21,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-secondary/60 fixed top-0 w-full z-10 shadow-md">
+    <nav className="bg-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-secondary/60 top-0 w-full z-10 shadow-md">
       <div className=" max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <span className="font-semibold text-xl">PejuangKorea</span>
